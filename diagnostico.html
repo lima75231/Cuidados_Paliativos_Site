@@ -5,6 +5,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Diagnóstico (ESAS)</title>
   <link rel="stylesheet" href="../assets/css/style.css" />
+
+  <!-- CSS opcional só para deixar em formato de cartão -->
+  <style>
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .form-card, .resultado-card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 15px;
+      background: #fff;
+    }
+    .form-card label {
+      display: block;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+    .form-card input[type="text"],
+    .form-card input[type="date"],
+    .form-card input[type="number"],
+    .form-card textarea {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      margin-top: 3px;
+    }
+    fieldset {
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 10px 12px;
+      margin-top: 15px;
+    }
+    legend {
+      font-weight: 600;
+      padding: 0 6px;
+    }
+    .botoes {
+      margin-top: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .botoes button {
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary  { background: #2c3e50; color: #fff; }
+    .btn-secondary{ background: #6c757d; color: #fff; }
+    .btn-tertiary { background: #e0e0e0; color: #333; }
+    .muted { font-size: 0.9rem; color: #666; }
+  </style>
 </head>
 <body>
   <header>
@@ -27,7 +85,7 @@
 
   <main>
     <h2>Ferramenta de Diagnóstico – ESAS (0–10)</h2>
-    <p>Preencha os campos e gere o escore. Clique em “Salvar na planilha” para registrar a avaliação no Google Sheets.</p>
+    <p>Preencha os campos abaixo. O profissional digita diretamente a pontuação de cada sintoma.</p>
 
     <form id="formEsas" class="form-card">
       <label for="paciente">Paciente</label>
@@ -36,52 +94,42 @@
       <label for="dataAvaliacao">Data da avaliação</label>
       <input id="dataAvaliacao" name="dataAvaliacao" type="date" required>
 
-      <!-- ESAS: 9 itens clássicos -->
       <fieldset>
         <legend>ESAS – Sintomas (0 = ausência | 10 = pior possível)</legend>
 
-        <label for="dor">Dor</label>
-        <input id="dor" name="dor" type="range" min="0" max="10" value="0" oninput="out_dor.value=this.value">
-        <div>Valor: <output id="out_dor">0</output></div>
+        <label for="dor">Dor (0–10)</label>
+        <input id="dor" name="dor" type="number" min="0" max="10" step="1" value="0" required>
 
-        <label for="cansaco">Cansaço/Fadiga</label>
-        <input id="cansaco" name="cansaco" type="range" min="0" max="10" value="0" oninput="out_cansaco.value=this.value">
-        <div>Valor: <output id="out_cansaco">0</output></div>
+        <label for="cansaco">Cansaço/Fadiga (0–10)</label>
+        <input id="cansaco" name="cansaco" type="number" min="0" max="10" step="1" value="0" required>
 
-        <label for="nausea">Náusea</label>
-        <input id="nausea" name="nausea" type="range" min="0" max="10" value="0" oninput="out_nausea.value=this.value">
-        <div>Valor: <output id="out_nausea">0</output></div>
+        <label for="nausea">Náusea (0–10)</label>
+        <input id="nausea" name="nausea" type="number" min="0" max="10" step="1" value="0" required>
 
-        <label for="depressao">Depressão/Tristeza</label>
-        <input id="depressao" name="depressao" type="range" min="0" max="10" value="0" oninput="out_depressao.value=this.value">
-        <div>Valor: <output id="out_depressao">0</output></div>
+        <label for="depressao">Depressão/Tristeza (0–10)</label>
+        <input id="depressao" name="depressao" type="number" min="0" max="10" step="1" value="0" required>
 
-        <label for="ansiedade">Ansiedade</label>
-        <input id="ansiedade" name="ansiedade" type="range" min="0" max="10" value="0" oninput="out_ansiedade.value=this.value">
-        <div>Valor: <output id="out_ansiedade">0</output></div>
+        <label for="ansiedade">Ansiedade (0–10)</label>
+        <input id="ansiedade" name="ansiedade" type="number" min="0" max="10" step="1" value="0" required>
 
-        <label for="sonolencia">Sonolência</label>
-        <input id="sonolencia" name="sonolencia" type="range" min="0" max="10" value="0" oninput="out_sonolencia.value=this.value">
-        <div>Valor: <output id="out_sonolencia">0</output></div>
+        <label for="sonolencia">Sonolência (0–10)</label>
+        <input id="sonolencia" name="sonolencia" type="number" min="0" max="10" step="1" value="0" required>
 
-        <label for="apetite">Falta de apetite</label>
-        <input id="apetite" name="apetite" type="range" min="0" max="10" value="0" oninput="out_apetite.value=this.value">
-        <div>Valor: <output id="out_apetite">0</output></div>
+        <label for="apetite">Falta de apetite (0–10)</label>
+        <input id="apetite" name="apetite" type="number" min="0" max="10" step="1" value="0" required>
 
-        <label for="bemestar">Bem-estar (pior bem-estar)</label>
-        <input id="bemestar" name="bemestar" type="range" min="0" max="10" value="0" oninput="out_bemestar.value=this.value">
-        <div>Valor: <output id="out_bemestar">0</output></div>
+        <label for="bemestar">Bem-estar (pior bem-estar) (0–10)</label>
+        <input id="bemestar" name="bemestar" type="number" min="0" max="10" step="1" value="0" required>
 
-        <label for="faltaAr">Falta de ar/Dispneia</label>
-        <input id="faltaAr" name="faltaAr" type="range" min="0" max="10" value="0" oninput="out_faltaAr.value=this.value">
-        <div>Valor: <output id="out_faltaAr">0</output></div>
+        <label for="faltaAr">Falta de ar/Dispneia (0–10)</label>
+        <input id="faltaAr" name="faltaAr" type="number" min="0" max="10" step="1" value="0" required>
       </fieldset>
 
       <label for="observacoes">Observações (opcional)</label>
       <textarea id="observacoes" name="observacoes" rows="3" placeholder="Anotações clínicas, intervenções, etc."></textarea>
 
       <div class="botoes">
-        <button type="button" id="btnCalcular">Calcular escore</button>
+        <button type="button" id="btnCalcular" class="btn-primary">Calcular escore</button>
         <button type="button" id="btnSalvar" class="btn-primary">Salvar na planilha</button>
         <button type="button" id="btnImprimir" class="btn-secondary">Imprimir / PDF</button>
         <button type="reset" class="btn-tertiary">Limpar</button>
@@ -103,7 +151,7 @@
   </footer>
 
   <script>
-    // === CONFIGURE AQUI o endpoint do seu Apps Script ===
+    // COLE aqui o endpoint do Apps Script se ainda não colocou:
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/COLE_AQUI_O_URL_DO_SEU_DEPLOY/exec";
 
     function escoreCategoria(media){
@@ -113,7 +161,7 @@
     }
 
     function coletarValores(){
-      const val = id => Number(document.getElementById(id).value);
+      const val = id => Number(document.getElementById(id).value || 0);
       const payload = {
         paciente: document.getElementById('paciente').value.trim(),
         dataAvaliacao: document.getElementById('dataAvaliacao').value,
@@ -143,7 +191,6 @@
       }
       const cat = escoreCategoria(media);
 
-      // resumo
       document.getElementById('resumo').innerHTML =
         `<strong>Paciente:</strong> ${payload.paciente} &nbsp;|&nbsp; ` +
         `<strong>Data:</strong> ${payload.dataAvaliacao}<br>` +
@@ -151,7 +198,6 @@
         `<strong>Média:</strong> ${media} — ` +
         `<span style="color:${cat.cor}; font-weight:700;">${cat.rotulo}</span>`;
 
-      // detalhes
       const detalhes = document.getElementById('detalhes');
       detalhes.innerHTML = `
         <li>Dor: ${payload.dor}</li>
@@ -178,18 +224,16 @@
       btn.disabled = true; btn.textContent = 'Salvando...';
 
       try {
-        const body = JSON.stringify({ ...payload, soma, media });
         const res = await fetch(APPS_SCRIPT_URL, {
           method: 'POST',
           headers: {'Content-Type':'application/json'},
-          body
+          body: JSON.stringify({ ...payload, soma, media })
         });
-        // Apps Script pode responder 200 com texto simples
         if (!res.ok) throw new Error('Falha no envio');
         alert('Avaliação salva na planilha com sucesso!');
       } catch (e) {
         console.error(e);
-        alert('Não foi possível salvar. Verifique o endpoint do Apps Script e as permissões.');
+        alert('Erro ao salvar. Verifique o endpoint do Apps Script.');
       } finally {
         btn.disabled = false; btn.textContent = 'Salvar na planilha';
       }
