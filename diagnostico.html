@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Diagnóstico</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <style>
+    /* Ajustes leves para esta página */
+    .tabs { display:flex; gap:10px; margin:20px 0; border-bottom:2px solid #e3e3e3; }
+    .tab-btn{
+      padding:10px 14px; border:none; background:#f7f7f7; cursor:pointer;
+      font-weight:600; color:#444; border-radius:8px 8px 0 0; transition:.2s;
+    }
+    .tab-btn.active{ background:#ddd; color:#000; }
+    .tab { display:none; padding-top:12px; }
+    .tab.active{ display:block; }
+
+    .card{
+      background:#fff; border:1px solid #e6e6e6; border-radius:10px; padding:16px;
+      box-shadow:0 2px 8px rgba(0,0,0,.06); margin:14px 0;
+    }
+
+    .grid{
+      display:grid; gap:14px;
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .col-12{ grid-column: span 12; }
+    .col-6{ grid-column: span 6; }
+    @media (max-width: 768px){
+      .col-6{ grid-column: span 12; }
+    }
+
+    label{ font-weight:600; display:block; margin-bottom:6px; }
+    input[type="range"]{ width:100%; }
+    .row{ margin-bottom:12px; }
+    .muted{ color:#666; font-size:.95rem; }
+    .btn{
+      appearance:none; border:none; border-radius:8px; padding:10px 14px;
+      background:#2c3e50; color:#fff; cursor:pointer; font-weight:600;
+    }
+    .btn.secondary{ background:#6c757d; }
+    .result{
+      font-size:1.1rem; font-weight:700;
+    }
+    .badge{
+      display:inline-block; padding:4px 10px; border-radius:999px; font-weight:700;
+    }
+    .leve{ background:#e9f7ef; color:#1e7e34; }
+    .moderado{ background:#fff3cd; color:#8a6d3b; }
+    .alto{ background:#fdecea; color:#a71d2a; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Cuidados Paliativos em Foco</h1>
+    <p>Cuidando com dignidade, acolhendo com respeito.</p>
+  </header>
+
+  <nav>
+    <a href="../index.html">Início</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="cuidados.html">Cuidados</a>
+    <a href="equipe.html">Equipe</a>
+    <a href="diario.html">Diário</a>
+    <a href="recursos.html">Recursos</a>
+    <a href="contato.html">Contato</a>
+    <a href="participe.html">Participe</a>
+    <a href="curso.html">Curso</a>
+    <a href="diagnostico.html" class="active">Diagnóstico</a>
+  </nav>
+
+  <main>
+    <h2>Ferramenta de Diagnóstico</h2>
+    <p class="muted">Escolha uma aba para usar a ferramenta incorporada (se você já tem um link externo) ou a versão simples local para demonstração/uso offline.</p>
+
+    <!-- Abas -->
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="incorporado">Ferramenta Incorporada</button>
+      <button class="tab-btn" data-tab="local">Versão Simples (Local)</button>
+    </div>
+
+    <!-- Aba 1: Incorporação por iframe -->
+    <section id="incorporado" class="tab active">
+      <div class="card">
+        <p>Se você já possui uma ferramenta de diagnóstico hospedada (ex.: AppSheet, HTML próprio, outro sistema), cole o link abaixo para embutir na página.</p>
+        <div class="row">
+          <label for="urlFerramenta">URL da ferramenta</label>
+          <input type="url" id="urlFerramenta" placeholder="https://seu-app.exemplo.com/diagnostico" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc;">
+        </div>
+        <button class="btn" id="btnCarregar">Carregar ferramenta</button>
+      </div>
+
+      <div class="card">
+        <iframe id="frameFerramenta" title="Ferramenta de Diagnóstico" style="width:100%; height:1000px; border:none; border-radius:8px;" loading="lazy"></iframe>
+      </div>
+    </section>
+
+    <!-- Aba 2: Versão Local (exemplo simples) -->
+    <section id="local" class="tab">
+      <div class="card">
+        <h3>Mini-avaliação (exemplo)</h3>
+        <p class="muted">Este exemplo demonstra como calcular um escore simples (Dor VAS + 3 sintomas). Você pode adaptar os itens, rótulos e pesos conforme sua metodologia.</p>
+
+        <div class="grid">
+          <div class="col-6">
+            <div class="row">
+              <label for="paciente">Paciente</label>
+              <input id="paciente" type="text" placeholder="Nome do paciente" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc;">
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <label for="dataAvaliacao">Data da avaliação</label>
+              <input id="dataAvaliacao" type="date" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc;">
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="row">
+              <label for="dor">Dor (VAS 0–10)</label>
+              <input id="dor" type="range" min="0" max="10" value="0" oninput="out_dor.value=this.value">
+              <div>Valor: <output id="out_dor">0</output></div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <label for="fadiga">Fadiga (0–10)</label>
+              <input id="fadiga" type="range" min="0" max="10" value="0" oninput="out_fadiga.value=this.value">
+              <div>Valor: <output id="out_fadiga">0</output></div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <label for="ansiedade">Ansiedade (0–10)</label>
+              <input id="ansiedade" type="range" min="0" max="10" value="0" oninput="out_ansiedade.value=this.value">
+              <div>Valor: <output id="out_ansiedade">0</output></div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="row">
+              <label for="nausea">Náusea (0–10)</label>
+              <input id="nausea" type="range" min="0" max="10" value="0" oninput="out_nausea.value=this.value">
+              <div>Valor: <output id="out_nausea">0</output></div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <button class="btn" id="btnCalcular">Calcular escore</button>
+            <button class="btn secondary" id="btnImprimir" title="Imprime a avaliação (você pode salvar como PDF no diálogo de impressão)">Imprimir / PDF</button>
+          </div>
+
+          <div class="col-12">
+            <div id="resultado" class="card" style="display:none;">
+              <div class="result" id="textoResultado"></div>
+              <div class="muted" id="explicacao"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Cuidados Paliativos em Foco.</p>
+  </footer>
+
+  <script>
+    // Controle de abas
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabs = document.querySelectorAll('.tab');
+    tabBtns.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        tabBtns.forEach(b=>b.classList.remove('active'));
+        tabs.forEach(t=>t.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    // Aba 1: carregar ferramenta externa
+    document.getElementById('btnCarregar')?.addEventListener('click', ()=>{
+      const url = document.getElementById('urlFerramenta').value.trim();
+      if(!url){ alert('Informe a URL da ferramenta.'); return; }
+      document.getElementById('frameFerramenta').src = url;
+    });
+
+    // Aba 2: cálculo simples local (exemplo)
+    function classificar(total){
+      if(total <= 10) return { rotulo:'Baixo', classe:'leve' };
+      if(total <= 20) return { rotulo:'Moderado', classe:'moderado' };
+      return { rotulo:'Alto', classe:'alto' };
+    }
+
+    document.getElementById('btnCalcular')?.addEventListener('click', ()=>{
+      const nome = document.getElementById('paciente').value.trim() || '—';
+      const data = document.getElementById('dataAvaliacao').value || '—';
+      const dor = Number(document.getElementById('dor').value);
+      const fadiga = Number(document.getElementById('fadiga').value);
+      const ansiedade = Number(document.getElementById('ansiedade').value);
+      const nausea = Number(document.getElementById('nausea').value);
+
+      // Exemplo de escore: soma simples (ajuste pesos conforme protocolo)
+      const total = dor + fadiga + ansiedade + nausea;
+      const faixa = classificar(total);
+
+      const resultado = document.getElementById('resultado');
+      const texto = document.getElementById('textoResultado');
+      const explicacao = document.getElementById('explicacao');
+
+      texto.innerHTML = `
+        Paciente: <strong>${nome}</strong><br>
+        Data: <strong>${data}</strong><br>
+        Escore total: <strong>${total}</strong>
+        &nbsp;<span class="badge ${faixa.classe}">${faixa.rotulo}</span>
+      `;
+      explicacao.textContent = 'Este é um exemplo didático. Ajuste os itens, faixas e pesos segundo o protocolo adotado (ex.: ESAS, VAS, etc.).';
+      resultado.style.display = 'block';
+    });
+
+    document.getElementById('btnImprimir')?.addEventListener('click', ()=> window.print());
+  </script>
+</body>
+</html>
