@@ -6,240 +6,230 @@
   <title>Diagnóstico (ESAS)</title>
   <link rel="stylesheet" href="../assets/css/style.css" />
 
-  <!-- CSS opcional só para deixar em formato de cartão -->
+  <!-- CSS leve e integrado ao padrão do site -->
   <style>
     main {
-      max-width: 900px;
+      max-width: 1000px;
       margin: 0 auto;
       padding: 20px;
     }
+
     .form-card, .resultado-card {
       border: 1px solid #ddd;
       border-radius: 8px;
-      padding: 16px;
-      margin-top: 15px;
+      padding: 20px;
+      margin-top: 20px;
       background: #fff;
     }
-    .form-card label {
-      display: block;
-      margin-top: 10px;
+
+    label {
       font-weight: 600;
+      margin-top: 10px;
+      display: block;
     }
-    .form-card input[type="text"],
-    .form-card input[type="date"],
-    .form-card input[type="number"],
-    .form-card textarea {
+
+    input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    textarea {
       width: 100%;
       padding: 8px;
       border-radius: 6px;
       border: 1px solid #ccc;
       box-sizing: border-box;
-      margin-top: 3px;
     }
-    fieldset {
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      padding: 10px 12px;
+
+    /* GRID 2 COLUNAS */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
       margin-top: 15px;
     }
-    legend {
-      font-weight: 600;
-      padding: 0 6px;
+
+    /* Responsividade */
+    @media (max-width: 700px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
     }
+
     .botoes {
-      margin-top: 15px;
+      margin-top: 20px;
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 10px;
     }
+
     .botoes button {
-      padding: 8px 12px;
+      padding: 10px 16px;
       border-radius: 6px;
       border: none;
       cursor: pointer;
+      font-weight: 600;
     }
-    .btn-primary  { background: #2c3e50; color: #fff; }
-    .btn-secondary{ background: #6c757d; color: #fff; }
+
+    .btn-primary { background: #2c3e50; color: #fff; }
+    .btn-secondary { background: #6c757d; color: #fff; }
     .btn-tertiary { background: #e0e0e0; color: #333; }
-    .muted { font-size: 0.9rem; color: #666; }
+
+    .muted { color: #666; font-size: .9rem; }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Cuidados Paliativos em Foco</h1>
-    <p>Cuidando com dignidade, acolhendo com respeito.</p>
-  </header>
 
-  <nav>
-    <a href="../index.html">Início</a>
-    <a href="sobre.html">Sobre</a>
-    <a href="cuidados.html">Cuidados</a>
-    <a href="equipe.html">Equipe</a>
-    <a href="diario.html">Diário</a>
-    <a href="recursos.html">Recursos</a>
-    <a href="contato.html">Contato</a>
-    <a href="participe.html">Participe</a>
-    <a href="curso.html">Curso</a>
-    <a href="diagnostico.html" class="active">Diagnóstico</a>
-  </nav>
+<header>
+  <h1>Cuidados Paliativos em Foco</h1>
+  <p>Cuidando com dignidade, acolhendo com respeito.</p>
+</header>
 
-  <main>
-    <h2>Ferramenta de Diagnóstico – ESAS (0–10)</h2>
-    <p>Preencha os campos abaixo. O profissional digita diretamente a pontuação de cada sintoma.</p>
+<nav>
+  <a href="../index.html">Início</a>
+  <a href="sobre.html">Sobre</a>
+  <a href="cuidados.html">Cuidados</a>
+  <a href="equipe.html">Equipe</a>
+  <a href="diario.html">Diário</a>
+  <a href="recursos.html">Recursos</a>
+  <a href="contato.html">Contato</a>
+  <a href="participe.html">Participe</a>
+  <a href="curso.html">Curso</a>
+  <a href="diagnostico.html" class="active">Diagnóstico</a>
+</nav>
 
-    <form id="formEsas" class="form-card">
-      <label for="paciente">Paciente</label>
-      <input id="paciente" name="paciente" type="text" placeholder="Nome completo" required>
+<main>
+  <h2>Ferramenta de Diagnóstico – ESAS (0–10)</h2>
+  <p>O profissional digita a pontuação de 0 a 10 para cada sintoma.</p>
 
-      <label for="dataAvaliacao">Data da avaliação</label>
-      <input id="dataAvaliacao" name="dataAvaliacao" type="date" required>
+  <form id="formEsas" class="form-card">
 
-      <fieldset>
-        <legend>ESAS – Sintomas (0 = ausência | 10 = pior possível)</legend>
+    <label for="paciente">Paciente</label>
+    <input id="paciente" type="text" placeholder="Nome completo" required>
 
-        <label for="dor">Dor (0–10)</label>
-        <input id="dor" name="dor" type="number" min="0" max="10" step="1" value="0" required>
+    <label for="dataAvaliacao">Data da avaliação</label>
+    <input id="dataAvaliacao" type="date" required>
 
-        <label for="cansaco">Cansaço/Fadiga (0–10)</label>
-        <input id="cansaco" name="cansaco" type="number" min="0" max="10" step="1" value="0" required>
+    <fieldset style="margin-top:20px;">
+      <legend><strong>ESAS – Sintomas</strong></legend>
 
-        <label for="nausea">Náusea (0–10)</label>
-        <input id="nausea" name="nausea" type="number" min="0" max="10" step="1" value="0" required>
+      <!-- GRID LADO A LADO -->
+      <div class="grid-2">
+        
+        <div>
+          <label for="dor">Dor (0–10)</label>
+          <input id="dor" type="number" min="0" max="10" value="0">
 
-        <label for="depressao">Depressão/Tristeza (0–10)</label>
-        <input id="depressao" name="depressao" type="number" min="0" max="10" step="1" value="0" required>
+          <label for="cansaco">Cansaço/Fadiga (0–10)</label>
+          <input id="cansaco" type="number" min="0" max="10" value="0">
 
-        <label for="ansiedade">Ansiedade (0–10)</label>
-        <input id="ansiedade" name="ansiedade" type="number" min="0" max="10" step="1" value="0" required>
+          <label for="nausea">Náusea (0–10)</label>
+          <input id="nausea" type="number" min="0" max="10" value="0">
 
-        <label for="sonolencia">Sonolência (0–10)</label>
-        <input id="sonolencia" name="sonolencia" type="number" min="0" max="10" step="1" value="0" required>
+          <label for="depressao">Depressão/Tristeza (0–10)</label>
+          <input id="depressao" type="number" min="0" max="10" value="0">
 
-        <label for="apetite">Falta de apetite (0–10)</label>
-        <input id="apetite" name="apetite" type="number" min="0" max="10" step="1" value="0" required>
+          <label for="ansiedade">Ansiedade (0–10)</label>
+          <input id="ansiedade" type="number" min="0" max="10" value="0">
+        </div>
 
-        <label for="bemestar">Bem-estar (pior bem-estar) (0–10)</label>
-        <input id="bemestar" name="bemestar" type="number" min="0" max="10" step="1" value="0" required>
+        <div>
+          <label for="sonolencia">Sonolência (0–10)</label>
+          <input id="sonolencia" type="number" min="0" max="10" value="0">
 
-        <label for="faltaAr">Falta de ar/Dispneia (0–10)</label>
-        <input id="faltaAr" name="faltaAr" type="number" min="0" max="10" step="1" value="0" required>
-      </fieldset>
+          <label for="apetite">Falta de apetite (0–10)</label>
+          <input id="apetite" type="number" min="0" max="10" value="0">
 
-      <label for="observacoes">Observações (opcional)</label>
-      <textarea id="observacoes" name="observacoes" rows="3" placeholder="Anotações clínicas, intervenções, etc."></textarea>
+          <label for="bemestar">Bem-estar (pior bem-estar) (0–10)</label>
+          <input id="bemestar" type="number" min="0" max="10" value="0">
 
-      <div class="botoes">
-        <button type="button" id="btnCalcular" class="btn-primary">Calcular escore</button>
-        <button type="button" id="btnSalvar" class="btn-primary">Salvar na planilha</button>
-        <button type="button" id="btnImprimir" class="btn-secondary">Imprimir / PDF</button>
-        <button type="reset" class="btn-tertiary">Limpar</button>
+          <label for="faltaAr">Falta de ar/Dispneia (0–10)</label>
+          <input id="faltaAr" type="number" min="0" max="10" value="0">
+        </div>
+
       </div>
-    </form>
+    </fieldset>
 
-    <section id="resultado" class="resultado-card" style="display:none;">
-      <h3>Resultado</h3>
-      <p id="resumo"></p>
-      <ul id="detalhes" style="padding-left:18px;"></ul>
-      <p id="notaLegal" class="muted">
-        *Instrumento de triagem. Interpretar no contexto clínico e conforme protocolos locais.
-      </p>
-    </section>
-  </main>
+    <label for="observacoes" style="margin-top:15px;">Observações (opcional)</label>
+    <textarea id="observacoes" rows="3" placeholder="Anotações clínicas..."></textarea>
 
-  <footer>
-    <p>&copy; 2025 Cuidados Paliativos em Foco.</p>
-  </footer>
+    <div class="botoes">
+      <button type="button" id="btnCalcular" class="btn-primary">Calcular escore</button>
+      <button type="button" id="btnSalvar" class="btn-primary">Salvar na planilha</button>
+      <button type="button" id="btnImprimir" class="btn-secondary">Imprimir / PDF</button>
+      <button type="reset" class="btn-tertiary">Limpar</button>
+    </div>
 
-  <script>
-    // COLE aqui o endpoint do Apps Script se ainda não colocou:
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/COLE_AQUI_O_URL_DO_SEU_DEPLOY/exec";
+  </form>
 
-    function escoreCategoria(media){
-      if (media < 3) return {rotulo:'Baixo', cor:'green'};
-      if (media < 7) return {rotulo:'Moderado', cor:'orange'};
-      return {rotulo:'Alto', cor:'red'};
-    }
+  <section id="resultado" class="resultado-card" style="display:none;">
+    <h3>Resultado</h3>
+    <p id="resumo"></p>
+    <ul id="detalhes"></ul>
+    <p class="muted">*Use sempre com julgamento clínico e protocolos da APS.</p>
+  </section>
 
-    function coletarValores(){
-      const val = id => Number(document.getElementById(id).value || 0);
-      const payload = {
-        paciente: document.getElementById('paciente').value.trim(),
-        dataAvaliacao: document.getElementById('dataAvaliacao').value,
-        dor: val('dor'),
-        cansaco: val('cansaco'),
-        nausea: val('nausea'),
-        depressao: val('depressao'),
-        ansiedade: val('ansiedade'),
-        sonolencia: val('sonolencia'),
-        apetite: val('apetite'),
-        bemestar: val('bemestar'),
-        faltaAr: val('faltaAr'),
-        observacoes: document.getElementById('observacoes').value.trim()
-      };
-      const soma = payload.dor + payload.cansaco + payload.nausea + payload.depressao +
-                   payload.ansiedade + payload.sonolencia + payload.apetite +
-                   payload.bemestar + payload.faltaAr;
-      const media = soma / 9;
-      return { payload, soma, media: Number(media.toFixed(2)) };
-    }
+</main>
 
-    document.getElementById('btnCalcular').addEventListener('click', () => {
-      const {payload, soma, media} = coletarValores();
-      if (!payload.paciente || !payload.dataAvaliacao) {
-        alert('Preencha paciente e data.');
-        return;
-      }
-      const cat = escoreCategoria(media);
+<footer>
+  <p>&copy; 2025 Cuidados Paliativos em Foco.</p>
+</footer>
 
-      document.getElementById('resumo').innerHTML =
-        `<strong>Paciente:</strong> ${payload.paciente} &nbsp;|&nbsp; ` +
-        `<strong>Data:</strong> ${payload.dataAvaliacao}<br>` +
-        `<strong>Soma ESAS:</strong> ${soma} &nbsp;|&nbsp; ` +
-        `<strong>Média:</strong> ${media} — ` +
-        `<span style="color:${cat.cor}; font-weight:700;">${cat.rotulo}</span>`;
+<script>
+  const APPS_SCRIPT_URL = "COLE_AQUI_O_SEU_URL";
 
-      const detalhes = document.getElementById('detalhes');
-      detalhes.innerHTML = `
-        <li>Dor: ${payload.dor}</li>
-        <li>Cansaço/Fadiga: ${payload.cansaco}</li>
-        <li>Náusea: ${payload.nausea}</li>
-        <li>Depressão/Tristeza: ${payload.depressao}</li>
-        <li>Ansiedade: ${payload.ansiedade}</li>
-        <li>Sonolência: ${payload.sonolencia}</li>
-        <li>Falta de apetite: ${payload.apetite}</li>
-        <li>Pior bem-estar: ${payload.bemestar}</li>
-        <li>Falta de ar: ${payload.faltaAr}</li>
-      `;
-      document.getElementById('resultado').style.display = 'block';
-    });
+  function coletar() {
+    const v = id => Number(document.getElementById(id).value) || 0;
+    return {
+      paciente: document.getElementById('paciente').value,
+      dataAvaliacao: document.getElementById('dataAvaliacao').value,
+      dor: v('dor'),
+      cansaco: v('cansaco'),
+      nausea: v('nausea'),
+      depressao: v('depressao'),
+      ansiedade: v('ansiedade'),
+      sonolencia: v('sonolencia'),
+      apetite: v('apetite'),
+      bemestar: v('bemestar'),
+      faltaAr: v('faltaAr'),
+      observacoes: document.getElementById('observacoes').value
+    };
+  }
 
-    document.getElementById('btnSalvar').addEventListener('click', async () => {
-      const {payload, soma, media} = coletarValores();
-      if (!payload.paciente || !payload.dataAvaliacao) {
-        alert('Preencha paciente e data.');
-        return;
-      }
+  function classificar(m) {
+    if (m < 3) return {r: "Baixo", cor: "green"};
+    if (m < 7) return {r: "Moderado", cor: "orange"};
+    return {r: "Alto", cor: "red"};
+  }
 
-      const btn = document.getElementById('btnSalvar');
-      btn.disabled = true; btn.textContent = 'Salvando...';
+  document.getElementById('btnCalcular').onclick = () => {
+    const p = coletar();
+    const soma = p.dor + p.cansaco + p.nausea + p.depressao + p.ansiedade + p.sonolencia + p.apetite + p.bemestar + p.faltaAr;
+    const media = (soma / 9).toFixed(2);
+    const cat = classificar(media);
 
-      try {
-        const res = await fetch(APPS_SCRIPT_URL, {
-          method: 'POST',
-          headers: {'Content-Type':'application/json'},
-          body: JSON.stringify({ ...payload, soma, media })
-        });
-        if (!res.ok) throw new Error('Falha no envio');
-        alert('Avaliação salva na planilha com sucesso!');
-      } catch (e) {
-        console.error(e);
-        alert('Erro ao salvar. Verifique o endpoint do Apps Script.');
-      } finally {
-        btn.disabled = false; btn.textContent = 'Salvar na planilha';
-      }
-    });
+    document.getElementById('resumo').innerHTML = `
+      <strong>Paciente:</strong> ${p.paciente} <br>
+      <strong>Data:</strong> ${p.dataAvaliacao}<br>
+      <strong>Soma:</strong> ${soma} — 
+      <span style="color:${cat.cor}">${cat.r}</span>
+    `;
 
-    document.getElementById('btnImprimir').addEventListener('click', () => window.print());
-  </script>
+    document.getElementById('detalhes').innerHTML = `
+      <li>Dor: ${p.dor}</li>
+      <li>Cansaço: ${p.cansaco}</li>
+      <li>Náusea: ${p.nausea}</li>
+      <li>Depressão: ${p.depressao}</li>
+      <li>Ansiedade: ${p.ansiedade}</li>
+      <li>Sonolência: ${p.sonolencia}</li>
+      <li>Falta de apetite: ${p.apetite}</li>
+      <li>Bem-estar: ${p.bemestar}</li>
+      <li>Falta de ar: ${p.faltaAr}</li>
+    `;
+
+    document.getElementById('resultado').style.display = 'block';
+  };
+
+  document.getElementById('btnImprimir').onclick = () => window.print();
+</script>
+
 </body>
 </html>
